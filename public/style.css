@@ -213,14 +213,13 @@ body {
     flex-direction: column;
     justify-content: center;
     padding: 6px 8px 0 8px;
-    border: 2px solid #052339;
+    border: 1px solid #052339;
 }
 
 
 .message-left {
     color: #052339;
     border-radius: 24px 24px 24px 0;
-
 }
 
 .message-right {
