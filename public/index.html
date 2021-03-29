@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+    <script src="socket-script.js" defer></script>
+    <title>Music Player</title>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="screen-container" id="mobile-screen">
+            <!-- Unlocked Screen -->
+            <div class="device-screen" id="device-screen">
+                <!-- Main functionality will be here -->
+                <!-- status bar -->
+                <div class="status-bar" id="status-bar">
+                    <div class="status-time" id="status-time">04:14</div>
+                    <div class="icons">
+                        <i class="fas fa-music"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-battery-three-quarters"></i>
+                    </div>
+                </div>
+                <!-- Action Bar -->
+                <div class="appbar" id="appbar">
+                    <div class="appbar-username-container"><input type="text" name="username" id="username" class="username" value="Anonymous"></div>
+                    <div class="option-menu"><i class="fas fa-ellipsis-v"></i></div>
+                </div>
+
+                <!-- Message container -->
+                <div class="message-container">
+                
+                    <ul class="message-list" id="message-list">
+
+                        <!-- Demo list -->
+                        
+
+                    </ul>
+                    <div class="input-message-container">
+                        <form class="message-form" id="message-form">
+                            <input type="text" name="message" id="message">
+                            <button type="submit" id="send-btn" class="send-button"><i class="fas fa-chevron-circle-right"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Locked Screen -->
+            <div class="lock-screen" id="lock-screen">
+                <h1 id='time'></h1>
+                <h2 id="coder-info">CODE WITH ❤️ BY AMIT CHAUDHARY</h2>
+            </div>
+        </div>
+
+
+
+        <!-- ---------------These are for outer looks------------------- -->
+        <div class="punch-hole-camera">
+            <div class="dot"></div>
+        </div>
+        <div class="volume-up-down">
+            <div class="volume-up" id="volumeup"></div>
+            <div class="volume-down" id="volumedown"></div>
+            <div class="power-rocker" id="poweronoff"></div>
+        </div>
+        <div class="volume-level-indicator" id="volume-level-border"></div>
+        <div class="volume-level" id="volume-level"></div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+</body>
+
+</html>
