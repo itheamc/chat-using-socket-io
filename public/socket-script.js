@@ -32,3 +32,12 @@ socket.on('client-left', (data) => {
     // console.log(data)
     addLeftNotificationOnUi(data)
 })
+
+// Listening to start typing event
+socket.on('client-typing', (data) => {
+    addTypingStatusOnUi(data)
+})
+
+socket.on('remove-typing-status', (data) => {
+    removeTypingStatusFromUi(data)
+})

@@ -29,6 +29,7 @@ messageForm.addEventListener('submit', (e) => {
     socket.emit('message', message);   // Sending message to the server so as to broadcast to the other active clients
     addMessageOnUI(message);
     clearMessageInput();
+    handleOnBlur();
 })
 
 // Function to clear the input field
@@ -38,19 +39,15 @@ const clearMessageInput = () => {
 
 // function to handle onfocus event on input text field
 const handleOnFocus = () => {
-    const data = `${socket.id} is typing...`;
-    socket.emit('client-typing', data);
+    socket.emit('client-typing-status', socket.id);
 }
 
 const handleOnBlur = () => {
-    const data = '';
-    socket.emit('client-typing', data);
+    socket.emit('remove-typing', socket.id);
 }
 
 messageInput.addEventListener('focus', handleOnFocus);
 messageInput.addEventListener('blur', handleOnBlur);
-
-
 
 
 /**
@@ -102,6 +99,26 @@ const addLeftNotificationOnUi = (data) => {
 // Function to handle the active clients count
 const addActiveClientsOnUi = (clients) => {
     activeClients.innerText = `Active Members ${clients}`;
+}
+
+
+// Function to handle the typing status
+const addTypingStatusOnUi = (data) => {
+    const element = `<li class="notification typing-status"><strong>${data}</strong> is typing....</li>`
+    if (document.querySelector('.typing-status') == null) {
+        messagesList.innerHTML += element;
+        scrollToBottom();
+    }
+}
+
+// Function to remove typing status
+const removeTypingStatusFromUi = (data) => {
+    const elements = document.querySelectorAll('.typing-status');
+    // console.log('blur event triggered', elements)
+    for (let index = 0; index < elements.length; index++) {
+        const element = elements[index];
+        element.remove();
+    }
 }
 
 

@@ -36,6 +36,9 @@ function handleSockets(socket) {
     handleDisconnect(socket);
     handleClientsMessages(socket);
     handleMessageTyping(socket);
+    notifyTypingStatus(socket);
+    notifyInputBlurStatus(socket);
+
 }
 
 // Function to handle the socket disconnection
@@ -56,6 +59,20 @@ function notifyClientJoined(socket) {
 // Function to handle client left
 function notifyClientLeft(socket) {
     socket.broadcast.emit('client-left', socket.id)
+}
+
+// Function to emit typing status
+function notifyTypingStatus(socket) {
+    socket.on('client-typing-status', (data) => {
+        socket.broadcast.emit('client-typing', data)
+    })
+}
+
+// Function to emit remove typing status
+function notifyInputBlurStatus(socket) {
+    socket.on('remove-typing', (data) => {
+        socket.broadcast.emit('remove-typing-status', data)
+    })
 }
 
 // Function to handle the total active clients data passed to the clients

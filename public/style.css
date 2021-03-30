@@ -296,19 +296,24 @@ body {
     align-self: center;
     font-family: monospace;
     font-size: xx-small;
-    font-style: italic;
     margin-bottom: 24px;
 }
 
 /* css for joined notification */
 .joined-notification {
     color: green;
+    font-style: italic;
 }
 
 
 /* css for left notification */
 .disconnect-notification {
     color: maroon;
+    font-style: italic;
+}
+
+.typing-status {
+    color: black;
 }
 
 /* ______________________CSS for input message__________________________ */
@@ -468,3 +473,5 @@ body {
     color: thistle;
     font-style: italic;
 }
+
+
