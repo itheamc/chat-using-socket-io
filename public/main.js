@@ -11,6 +11,8 @@ const userName = document.getElementById('username');
 const messageForm = document.getElementById('message-form');
 const messageInput = document.getElementById('message');
 const messagesList = document.getElementById('message-list');
+const activeClientsContainer = document.getElementById('active-client-container');
+const activeClients = document.getElementById('active-clients');
 
 
 
@@ -25,7 +27,7 @@ messageForm.addEventListener('submit', (e) => {
         message: messageInput.value,
     }
     socket.emit('message', message);   // Sending message to the server so as to broadcast to the other active clients
-    appendMessageOnUI(message);
+    addMessageOnUI(message);
     clearMessageInput();
 })
 
@@ -56,7 +58,7 @@ messageInput.addEventListener('blur', handleOnBlur);
  * These functions wil handle the chat message sent by the client
  */
 
-const appendMessageOnUI = (data) => {
+const addMessageOnUI = (data) => {
     const list_element = `<li class="${data.id === socket.id ? "right-message-container" : "left-message-container"}">
     <div class="${data.id === socket.id ? "message-right" : "message-left"}">
         <span class="message">${data.message}</span>
@@ -81,13 +83,32 @@ const scrollToBottom = () => {
 }
 
 
+// Function to handle new joined notification
+const addJoinedNotificationOnUi = (data) => {
+    const element = `<li class="notification joined-notification"><strong>${data}</strong> joined the chat</li>`
+    messagesList.innerHTML += element;
+    scrollToBottom();
+
+}
+
+// Function to handle client left notification
+const addLeftNotificationOnUi = (data) => {
+    const element = `<li class="notification disconnect-notification"><strong>${data}</strong> left the chat</li>`
+    messagesList.innerHTML += element;
+    scrollToBottom();
+
+}
+
+// Function to handle the active clients count
+const addActiveClientsOnUi = (clients) => {
+    activeClients.innerText = `Active Members ${clients}`;
+}
 
 
 
 /**
- * These are Ui related javascript codes______________________________
+ * ________________________These are Ui related javascript codes_____________________________
  */
- let isIndicatorVisible = false;
  let isLocked = true;
  
  
@@ -126,12 +147,14 @@ const scrollToBottom = () => {
          mobileScreen.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
          lockScreen.style.visibility = 'hidden';
          deviceScreen.style.visibility = 'visible';
+         activeClientsContainer.style.visibility = 'visible';
          isLocked = false;
  
      } else {
          mobileScreen.style.backgroundColor = '#052339';
          lockScreen.style.visibility = 'visible';
          deviceScreen.style.visibility = 'hidden';
+         activeClientsContainer.style.visibility = 'hidden';
          isLocked = true;
      }
      setTimeout(() => {
@@ -148,6 +171,7 @@ const scrollToBottom = () => {
          mobileScreen.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
          lockScreen.style.visibility = 'hidden';
          deviceScreen.style.visibility = 'visible';
+         activeClientsContainer.style.visibility = 'visible';
          isLocked = false;
          tapTimes = 0;
          return

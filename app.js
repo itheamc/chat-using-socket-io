@@ -29,9 +29,10 @@ const connectedSockets = new Set();
  * the server */
 function handleSockets(socket) {
     connectedSockets.add(socket.id);
-    // console.log(socket.id)
+    console.log(socket.handshake.auth)
 
     handleActiveSockets();
+    notifyClientJoined(socket);
     handleDisconnect(socket);
     handleClientsMessages(socket);
     handleMessageTyping(socket);
@@ -41,9 +42,20 @@ function handleSockets(socket) {
 function handleDisconnect(socket) {
     socket.on('disconnect', () => {
         connectedSockets.delete(socket.id);
+        notifyClientLeft(socket);
         // console.log(`This socket -- ${socket.id} was disconnected`);
         handleActiveSockets();
     })
+}
+
+// Function to handle new client joined
+function notifyClientJoined(socket) {
+    socket.broadcast.emit('new-client', socket.id)
+}
+
+// Function to handle client left
+function notifyClientLeft(socket) {
+    socket.broadcast.emit('client-left', socket.id)
 }
 
 // Function to handle the total active clients data passed to the clients

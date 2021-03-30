@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="main.js" defer></script>
     <script src="socket-script.js" defer></script>
-    <title>Music Player</title>
+    <title>Chat App By ITHEAMC</title>
 </head>
 
 <body>
@@ -62,8 +62,6 @@
             </div>
         </div>
 
-
-
         <!-- ---------------These are for outer looks------------------- -->
         <div class="punch-hole-camera">
             <div class="dot"></div>
@@ -75,6 +73,10 @@
         </div>
         <div class="volume-level-indicator" id="volume-level-border"></div>
         <div class="volume-level" id="volume-level"></div>
+    </div>
+     <!-- Active client container div -->
+     <div class="active-client-container" id="active-client-container">
+        <p class="active-clients" id="active-clients"></p>
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
