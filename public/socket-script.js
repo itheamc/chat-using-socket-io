@@ -1,8 +1,8 @@
 const socket = io({
     auth: {
-      token: "thisismyauthtoken"
+        token: "thisismyauthtoken"
     }
-  });
+});
 
 // Receiving the total active client number from the socket server
 socket.on('active-clients', (data) => {

@@ -9,6 +9,8 @@
         integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
         crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css">
+    <script src="/socket.io/socket.io.js" defer></script>
+    <script src="amcryption.js" defer></script>
     <script src="main.js" defer></script>
     <script src="socket-script.js" defer></script>
     <title>Chat App By ITHEAMC</title>
@@ -33,23 +35,25 @@
                 </div>
                 <!-- Action Bar -->
                 <div class="appbar" id="appbar">
-                    <div class="appbar-username-container"><input type="text" name="username" id="username" class="username" value="Anonymous"></div>
+                    <div class="appbar-username-container"><input type="text" name="username" id="username"
+                            class="username" value="Anonymous"></div>
                     <div class="option-menu"><i class="fas fa-ellipsis-v"></i></div>
                 </div>
 
                 <!-- Message container -->
                 <div class="message-container">
-                
+
                     <ul class="message-list" id="message-list">
 
                         <!-- Demo list -->
-                        
+
 
                     </ul>
                     <div class="input-message-container">
                         <form class="message-form" id="message-form">
                             <input type="text" name="message" id="message">
-                            <button type="submit" id="send-btn" class="send-button"><i class="fas fa-chevron-circle-right"></i></button>
+                            <button type="submit" id="send-btn" class="send-button"><i
+                                    class="fas fa-chevron-circle-right"></i></button>
                         </form>
                     </div>
                 </div>
@@ -74,13 +78,14 @@
         <div class="volume-level-indicator" id="volume-level-border"></div>
         <div class="volume-level" id="volume-level"></div>
     </div>
-     <!-- Active client container div -->
-     <div class="active-client-container" id="active-client-container">
+    <!-- Active client container div -->
+    <div class="active-client-container" id="active-client-container">
         <p class="active-clients" id="active-clients"></p>
     </div>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+        integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

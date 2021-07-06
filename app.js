@@ -83,7 +83,7 @@ function handleActiveSockets() {
 // Function to handle the data got from the clients as socket.emit('message', data)
 function handleClientsMessages(socket) {
     socket.on('message', (message) => {
-        // console.log(message);
+        console.log(message);
         socket.broadcast.emit('client-message', message);
     })
 }
