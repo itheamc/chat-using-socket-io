@@ -28,8 +28,8 @@ const connectedSockets = new Set();
  * It will triggered out every time whenever client socket communicate with
  * the server */
 function handleSockets(socket) {
-    connectedSockets.add(socket.id);
-    console.log(socket.handshake.auth)
+    connectedSockets.add({ id: socket.id, name: socket.handshake.auth.user });
+    // console.log(socket.handshake.auth)
 
     handleActiveSockets();
     notifyClientJoined(socket);
@@ -38,27 +38,36 @@ function handleSockets(socket) {
     handleMessageTyping(socket);
     notifyTypingStatus(socket);
     notifyInputBlurStatus(socket);
+    notifyNameChanged(socket);
 
 }
 
 // Function to handle the socket disconnection
 function handleDisconnect(socket) {
     socket.on('disconnect', () => {
-        connectedSockets.delete(socket.id);
-        notifyClientLeft(socket);
-        // console.log(`This socket -- ${socket.id} was disconnected`);
-        handleActiveSockets();
+
+        let name = "Anonymous"
+        connectedSockets.forEach(s => {
+            if (s.id === socket.id) {
+                name = s.name
+                connectedSockets.delete(s);
+
+                notifyClientLeft(socket, name);
+                // console.log(`This socket -- ${socket.id} was disconnected`);
+                handleActiveSockets();
+            }
+        })
     })
 }
 
 // Function to handle new client joined
 function notifyClientJoined(socket) {
-    socket.broadcast.emit('new-client', socket.id)
+    socket.broadcast.emit('new-client', socket.handshake.auth.user)
 }
 
 // Function to handle client left
-function notifyClientLeft(socket) {
-    socket.broadcast.emit('client-left', socket.id)
+function notifyClientLeft(socket, user) {
+    socket.broadcast.emit('client-left', user)
 }
 
 // Function to emit typing status
@@ -77,6 +86,7 @@ function notifyInputBlurStatus(socket) {
 
 // Function to handle the total active clients data passed to the clients
 function handleActiveSockets() {
+    console.log(connectedSockets)
     io.emit('active-clients', connectedSockets.size);
 }
 
@@ -93,5 +103,20 @@ function handleClientsMessages(socket) {
 function handleMessageTyping(socket) {
     socket.on('client-typing', (data) => {
         socket.broadcast.emit('typing-status', data);
+    })
+}
+
+// Function to notify name changed by user
+function notifyNameChanged(socket) {
+    socket.on('name-changed', (data) => {
+        let from = ''
+        connectedSockets.forEach(s => {
+            if (s.id === socket.id) {
+                from = s.name
+                s.name = data
+            }
+        })
+
+        socket.broadcast.emit('user-name-updated', { from, to: data });
     })
 }

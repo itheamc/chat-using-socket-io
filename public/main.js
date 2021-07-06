@@ -10,6 +10,9 @@ const recentTime = document.getElementById('time');
 const statusTime = document.getElementById('status-time');
 
 const userName = document.getElementById('username');
+// Setting valuse to user name
+userName.value = localStorage.getItem('user-name') || 'Anonymous'
+
 const messageForm = document.getElementById('message-form');
 const messageInput = document.getElementById('message');
 const messagesList = document.getElementById('message-list');
@@ -50,16 +53,24 @@ const clearMessageInput = () => {
 
 // function to handle onfocus event on input text field
 const handleOnFocus = () => {
-    socket.emit('client-typing-status', socket.id);
+    socket.emit('client-typing-status', userName.value);
 }
 
 const handleOnBlur = () => {
-    socket.emit('remove-typing', socket.id);
+    socket.emit('remove-typing', null);
 }
 
 messageInput.addEventListener('focus', handleOnFocus);
 messageInput.addEventListener('blur', handleOnBlur);
 
+// Setting event listener to listent name change
+userName.addEventListener('blur', () => {
+    if (localStorage.getItem('user-name') === userName.value) {
+        return
+    }
+    socket.emit('name-changed', userName.value);
+    localStorage.setItem('user-name', userName.value)
+})
 
 /**
  * These are the functions connected with the socket-script.js file
@@ -106,6 +117,16 @@ const addLeftNotificationOnUi = (data) => {
     scrollToBottom();
 
 }
+
+
+// Function to handle client name change notification
+const addNameChangeNotificationOnUi = (data) => {
+    const element = `<li class="notification name-change-notification"><strong>${data.from}</strong> change his/her name to <strong>${data.to}</strong></li>`
+    messagesList.innerHTML += element;
+    scrollToBottom();
+
+}
+
 
 // Function to handle the active clients count
 const addActiveClientsOnUi = (clients) => {

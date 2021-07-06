@@ -296,20 +296,25 @@ body {
     align-self: center;
     font-family: monospace;
     font-size: xx-small;
+    font-style: italic;
     margin-bottom: 24px;
 }
 
 /* css for joined notification */
 .joined-notification {
     color: green;
-    font-style: italic;
+    
 }
 
 
 /* css for left notification */
 .disconnect-notification {
     color: maroon;
-    font-style: italic;
+}
+
+/* css for name change notification */
+.name-change-notification {
+    color: rgb(161, 6, 110);
 }
 
 .typing-status {

@@ -1,6 +1,6 @@
 const socket = io({
     auth: {
-        token: "thisismyauthtoken"
+        user: localStorage.getItem('user-name')
     }
 });
 
@@ -40,4 +40,8 @@ socket.on('client-typing', (data) => {
 
 socket.on('remove-typing-status', (data) => {
     removeTypingStatusFromUi(data)
+})
+
+socket.on('user-name-updated', (data) => {
+    addNameChangeNotificationOnUi(data)
 })
