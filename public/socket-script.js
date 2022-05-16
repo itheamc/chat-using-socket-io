@@ -1,6 +1,6 @@
 const socket = io({
     auth: {
-        user: localStorage.getItem('user-name')
+        user: localStorage.getItem('user-name') || "Anonymous"
     }
 });
 
